@@ -21,7 +21,11 @@ var uploadObj = {
         fs.readFile(relativefilePath, "utf8", function (err, data) {
             if (err) throw err;
             else {
-                parseRecords(data);
+                parseRecords(data).then(function(response){
+
+                     console.log(""+response);
+                     
+                });
             }
 
             fs.unlink(relativefilePath, function (err) {
@@ -38,7 +42,7 @@ var uploadObj = {
 };
 
 parseRecords = function (data) {
-
+    var deferred = q.defer();
     data += '\n';
     var re = /\r\n|\n\r|\n|\r/g;
     var rows = data.replace(re, "\n").split("\n");
@@ -52,15 +56,21 @@ parseRecords = function (data) {
         var arrivalTime = rowdata[4];
         var departureTime = rowdata[5];
         var distance = rowdata[6];
-        pushDateToArray(slNo, trainNo, stationCode, dayOfJourney, arrivalTime, departureTime, distance);
+        pushDataToArray(slNo, trainNo, stationCode, dayOfJourney, arrivalTime, departureTime, distance);
     }
 
-    uploadToServer();
+    uploadToServer().then(function(res){
+         deferred.resolve("Parse All Records Successfully");
+    });
 
+     return deferred.promise;
 };
 
 
 uploadToServer = function () {
+
+    var deferred = q.defer();
+
     var dir = './serverUpload';
     var fileName = "file.csv";     
     var headerfields = ['islno', 'trainNo', 'stationCode', 'dayofJourney', 'arrivalTime', 'departureTime', 'distance'];
@@ -75,15 +85,19 @@ uploadToServer = function () {
 
         fs.writeFile(dir+"/"+fileName, csv, function (err) {
             if (err) throw err;
-                console.log('file Uploaded to Server!!!!');
-                saveTrainStationToDB();
+                console.log('file Uploaded to Server successfully!!!!');
+                saveTrainStationToDB().then(function saveFromDB(res){
+
+                    deferred.resolve("file Uploaded to Server successfully!!!!");
+                
+                });
         });
 
     }
-
+    return deferred.promise;
 };
 
-pushDateToArray = function (islno, Train_No, stationCode, dayofJourney, arrivaltime, departuretime, distance) {
+pushDataToArray = function (islno, Train_No, stationCode, dayofJourney, arrivaltime, departuretime, distance) {
     trainData.push({
         islno: islno,
         trainNo: Train_No,
@@ -97,12 +111,13 @@ pushDateToArray = function (islno, Train_No, stationCode, dayofJourney, arrivalt
 };
 
 saveTrainStationToDB = function(){
-        //var deferred = q.defer();
-        trainStationModel.insertMany(trainData, function (err, post) {
+        var deferred = q.defer();
+        trainStationModel.insertMany(trainData, function (err, result) {
             if (err) return err;
+            deferred.resolve("Records successfully saved to DB");
             
         });
-        return "Train Station saved in DB";
+        return deferred.promise;
 };
 
 
