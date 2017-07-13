@@ -28,9 +28,13 @@
             <div class="col-md-4">
                 <form name="uploadForm">
 
-                    <div class="btn btn-md btn-success" ngf-select ng-model="file" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'"
-                        ngf-max-size="20MB" ngf-min-height="100" ngf-resize="{width: 100, height: 100}"> <i class="fa fa-plus" aria-hidden="true"></i> Add files..</div>
-
+                    
+                        <div class="btn btn-md btn-success" ngf-select ng-model="file"
+									name="file" ngf-accept="'csv/*'" style="width: 100px"
+									ngf-max-size="20MB" ngf-min-height="50"
+									ngf-resize="{width: 100, height: 100}">
+									<i class="fa fa-plus" aria-hidden="true"></i> Add files..
+								</div>
 
 
                     <button type="submit" class="btn btn-primary" ng-click="Upload()">
