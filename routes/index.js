@@ -17,7 +17,7 @@ router.get('/', function (req, res, next) {
 
 
 
-router.post('/api/v1/uploads', uploadDest.single("file"), upload.parseUpload);
+router.post('/api/v1/uploads', uploadDest.single("file"), upload.parseCSVFile);
 
 
 

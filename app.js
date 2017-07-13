@@ -15,8 +15,8 @@ var db = require("./database/db");
 
 
 app.use(logger('dev'));
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -31,8 +31,29 @@ app.all('/*', function (req, res, next) {
 
 app.use(cors());
 
-app.use('/',routes);
+app.use('/', routes);
 
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+
+
+
+var raw_port = process.env.PORT;
+var port = normalizePort(raw_port || '4000');
+app.set('port', port);
+var server = app.listen(port, function () {
+  console.log('Server running at http://localhost:' + port);
 });
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    return val;
+  }
+
+  if (port >= 0) {
+    return port;
+  }
+
+  return false;
+}
+
