@@ -6,6 +6,10 @@ var path = require('path');
 
 var app = express();
 
+var routes = require('./routes/index');
+var db = require("./database/db");
+
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 

@@ -1,7 +1,7 @@
 
 var express = require('express');
 var mongoose = require('mongoose');
-var q = require('q');
+
 require('mongoose-query-paginate');
 var router = express.Router();
 var Multer = require('multer');
