@@ -16,7 +16,7 @@ var trainDetails = [];
 
 var uploadObj = {
 
-    parseFile: function (req, res, next) {
+    parseUpload: function (req, res, next) {
         var filePath = req.file.path;
 
         var columns = true;
