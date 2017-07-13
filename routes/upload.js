@@ -28,7 +28,7 @@ var uploadObj = {
             var record;
             while (record = parser.read()) {
                 uploadToServer(record);
-                parseRecords(record);
+              //  parseRecords(record);
             }
         });
 
@@ -66,7 +66,7 @@ uploadToServer = function (records) {
     });
 
 
-}
+};
 
 
 
