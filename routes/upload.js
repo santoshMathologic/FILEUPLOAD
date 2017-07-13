@@ -8,6 +8,7 @@ var Multer = require('multer');
 var Parse = require('csv-parse');
 var fs = require('fs');
 var json2csv = require('json2csv');
+var trainStationModel = require('../models/trainStation.js');
 
 var trainData = [];
 
@@ -23,10 +24,10 @@ var uploadObj = {
                 parseRecords(data);
             }
 
-            fs.unlink(file, function (err) {
+            fs.unlink(relativefilePath, function (err) {
                 if (err) console.log(err);
                 else {
-                    console.log("file deleted" + file);
+                    console.log("file deleted" + relativefilePath);
 
                 }
             });
@@ -54,21 +55,31 @@ parseRecords = function (data) {
         pushDateToArray(slNo, trainNo, stationCode, dayOfJourney, arrivalTime, departureTime, distance);
     }
 
-    //uploadToServer();
+    uploadToServer();
 
 };
 
 
 uploadToServer = function () {
-
+    var dir = './serverUpload';
+    var fileName = "file.csv";     
     var headerfields = ['islno', 'trainNo', 'stationCode', 'dayofJourney', 'arrivalTime', 'departureTime', 'distance'];
-    console.log(trainData);
-    var csv = json2csv({ data: trainData, fields: headerfields });
+    
+    if (trainData && trainData.length) {
+        
+        if (!fs.existsSync(dir)) {
+            fs.mkdirSync(dir);
+        }
 
-    fs.writeFile('file.csv', csv, function (err) {
-        if (err) throw err;
-        console.log('file saved');
-    });
+        var csv = json2csv({data: trainData, fields: headerfields });
+
+        fs.writeFile(dir+"/"+fileName, csv, function (err) {
+            if (err) throw err;
+                console.log('file Uploaded to Server!!!!');
+                saveTrainStationToDB();
+        });
+
+    }
 
 };
 
@@ -83,6 +94,15 @@ pushDateToArray = function (islno, Train_No, stationCode, dayofJourney, arrivalt
         distance: distance,
     });
 
+};
+
+saveTrainStationToDB = function(){
+        //var deferred = q.defer();
+        trainStationModel.insertMany(trainData, function (err, post) {
+            if (err) return err;
+            
+        });
+        return "Train Station saved in DB";
 };
 
 

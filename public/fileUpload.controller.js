@@ -9,11 +9,6 @@ app.controller("uploadCtrl", function ($scope, $location, Upload) {
 
     $scope.Upload = function () {
         if ($scope.uploadForm.file.$valid && $scope.file) {
-
-            console.log("DASDASD");
-
-
-
             Upload.upload({
                 url: '/api/v1/uploads',
                 data: { file: $scope.file }

@@ -11,9 +11,7 @@ var uploadDest = Multer({
     dest: './uploads'
 });
 
-router.get('/', function (req, res, next) {
-    res.render('index', { title: 'Express' });
-});
+
 
 
 

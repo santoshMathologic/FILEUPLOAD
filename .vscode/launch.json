@@ -9,25 +9,7 @@
             "request": "launch",
             "name": "Launch Program",
             "program": "${workspaceRoot}\\app.js"
-        },
-        {
-            "name": "Launch with nodemon",
-            "type": "node",
-            "request": "launch",
-            "program": "${workspaceRoot}/node_modules/nodemon/bin/nodemon.js",
-            "args": [
-                "${workspaceRoot}/app.js"
-            ],
-            "runtimeArgs": [
-                "--nolazy"
-            ]
-        },
-        {
-            "name": "Attach",
-            "type": "node",
-            "request": "attach",
-            "port": 5858,
-            "restart": true
         }
+       
     ]
 }
