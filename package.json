@@ -16,6 +16,7 @@
     "debug": "~2.2.0",
     "express": "^4.15.3",
     "http": "0.0.0",
+    "json2csv": "^3.9.0",
     "mongodb": "^2.2.28",
     "mongoose": "^4.10.6",
     "mongoose-deep-populate": "^3.0.0",

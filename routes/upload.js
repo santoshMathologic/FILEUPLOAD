@@ -7,11 +7,8 @@ var router = express.Router();
 var Multer = require('multer');
 var Parse = require('csv-parse');
 var fs = require('fs');
+var json2csv = require('json2csv');
 
-
-
-
-var trainDetails = [];
 
 
 var uploadObj = {
@@ -30,7 +27,7 @@ var uploadObj = {
         parser.on("readable", function () {
             var record;
             while (record = parser.read()) {
-                
+                uploadToServer(record);
                 parseRecords(record);
             }
         });
@@ -51,10 +48,25 @@ var uploadObj = {
 
 parseRecords = function (records) {
 
- 
-     console.log(records);
-        
+
+    console.log(records);
+
 };
+
+
+uploadToServer = function (records) {
+
+    var headerfields = ['islno', 'Train_No', 'station_Code', 'Day_ of_ Journey', 'Arrival_time', 'Departure_time', 'Distance'];
+
+    var csv = json2csv({ data: records, fields: headerfields });
+
+    fs.writeFile('file.csv', csv, function (err) {
+        if (err) throw err;
+        console.log('file saved');
+    });
+
+
+}
 
 
 
