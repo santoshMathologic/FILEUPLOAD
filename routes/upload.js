@@ -52,12 +52,7 @@ var uploadObj = {
 parseRecords = function (records) {
 
  
-    trainDetails = [];
-        var trainNo = records.Train_No;
-        var trainName = records.train_Name;
-        var from = records.Source;
-        var to = records.Destination;
-        var trainType = records.Train_Type;
+     console.log(records);
         
 };
 
