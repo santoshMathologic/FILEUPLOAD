@@ -17,24 +17,24 @@
 
 </head>
 
-<body>
-
+<body ng-app="BTAPP" ng-controller="uploadCtrl">
+<div class="container">
     <div class="page-header">
         <h1>File Uploading</h1>
     </div>
 
-    <div ng-app="BTAPP" ng-controller="uploadCtrl">
+
+    <div class="row">
         <div class="col-lg-12">
-            <div class="col-md-4">
+            <div class="row">
+            <div class="col-lg-8">
                 <form name="uploadForm">
 
-                    
-                        <div class="btn btn-md btn-success" ngf-select ng-model="file"
-									name="file" ngf-accept="'csv/*'" style="width: 100px"
-									ngf-max-size="20MB" ngf-min-height="50"
-									ngf-resize="{width: 100, height: 100}">
-									<i class="fa fa-plus" aria-hidden="true"></i> Add files..
-								</div>
+
+                    <div class="btn btn-md btn-success" ngf-select ng-model="file" name="file" ngf-accept="'csv/*'" style="width: 100px" ngf-max-size="20MB"
+                        ngf-min-height="50" ngf-resize="{width: 100, height: 100}">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Add files..
+                    </div>
 
 
                     <button type="submit" class="btn btn-primary" ng-click="Upload()">
@@ -51,53 +51,72 @@
 
                 </form>
             </div>
+            </div>
+
+            <br>
+            <br>
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{progress}}"
+                            aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width' : progress + '%'}">
+                            {{progress}}% Complete (success)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <br>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <table class="table table-striped table-condensed">
+
+
+								<thead>
+									<tr>
+										<th>Sl No</th>
+                                        <th>Name</th>
+                                        <th>Size</th>
+										<th>Status</th>
+										<th>Extension</th>
+										<th>Uploader</th>
+										<th>Date</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+
+								<tbody>
+									<tr ng-repeat="tdl in trainDetailsList">
+										<td>{{$index+1}}</td>
+                                        <td>{{tdl.fileName}}</td>
+                                        <td>{{tdl.size}}</td>
+										<td>{{tdl.status}}</td>
+										<td>{{tdl.fileExtension}}</td>
+										<td>{{tdl.uploader}}</td>
+										<td>{{tdl.uploadDate | date : "fullDate" }}</td>
+										<td>
+											<button class="btn btn-danger btn-xs fa fa-trash"
+												ng-click="deleteTrainDetails(tdl)"></button>
+											<button class="btn btn-warning btn-xs fa fa-edit"></button>
+
+										</td>
+
+									</tr>
+								</tbody>
+							</table>
+                </div>
+            </div>
+
+
+
         </div>
-
-
-
-
-
-
-
-
-
-
-        <table class="table table-striped table-condensed">
-            <thead>
-                <tr>
-                    <th>File</th>
-                    <th>FileName</th>
-                    <th>FileSize</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>John</td>
-                    <td>Doe</td>
-                    <td>john@example.com</td>
-                    <td>
-
-                        <button type="button" class="btn btn-xs btn-danger">
-                            <i class="fa fa-trash" aria-hidden="true"></i>
-                        </button>
-
-                        <button type="button" class="btn btn-xs btn-warning">
-                            <i class="fa fa-ban fa-fw fa-1x" aria-hidden="true"></i>
-                        </button>
-
-                    </td>
-                </tr>
-
-
-            </tbody>
-
-
-
 
     </div>
 
-
+</div>
 </body>
 
 </html>

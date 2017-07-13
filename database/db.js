@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
-mongoose.connect('mongodb://127.0.0.1/bt', function(error) {
+mongoose.connect('mongodb://127.0.0.1/bt', { useMongoClient: true },function(error) {
     if (error) {
         console.log('Can not connect to Database', error);
     } else {

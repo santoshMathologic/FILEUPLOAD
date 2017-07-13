@@ -21,10 +21,16 @@ var uploadObj = {
         fs.readFile(relativefilePath, "utf8", function (err, data) {
             if (err) throw err;
             else {
-                parseRecords(data).then(function(response){
+                parseRecords(data).then(function (response) {
 
-                     console.log(""+response);
-                     
+                    console.log("" + response);
+                    res.status(200);
+                    res.json({
+                        "success":true,
+                        "status": 200,
+                        "message": "File has been Upload successfully into DB !!!!!"
+                    });
+
                 });
             }
 
@@ -59,11 +65,11 @@ parseRecords = function (data) {
         pushDataToArray(slNo, trainNo, stationCode, dayOfJourney, arrivalTime, departureTime, distance);
     }
 
-    uploadToServer().then(function(res){
-         deferred.resolve("Parse All Records Successfully");
+    uploadToServer().then(function (res) {
+        deferred.resolve("Parse All Records Successfully");
     });
 
-     return deferred.promise;
+    return deferred.promise;
 };
 
 
@@ -72,25 +78,25 @@ uploadToServer = function () {
     var deferred = q.defer();
 
     var dir = './serverUpload';
-    var fileName = "file.csv";     
-    var headerfields = ['islno', 'trainNo', 'stationCode', 'dayofJourney', 'arrivalTime', 'departureTime', 'distance'];
-    
+    var fileName = "train_station.csv";
+    var headerfields = ['slNo', 'trainNo', 'stationCode', 'dayofJourney', 'arrivalTime', 'departureTime', 'distance'];
+
     if (trainData && trainData.length) {
-        
+
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir);
         }
 
-        var csv = json2csv({data: trainData, fields: headerfields });
+        var csv = json2csv({ data: trainData, fields: headerfields });
 
-        fs.writeFile(dir+"/"+fileName, csv, function (err) {
+        fs.writeFile(dir + "/" + fileName, csv, function (err) {
             if (err) throw err;
-                console.log('file Uploaded to Server successfully!!!!');
-                saveTrainStationToDB().then(function saveFromDB(res){
+            console.log('file Uploaded to Server successfully!!!!');
+            saveTrainStationToDB().then(function saveFromDB(res) {
 
-                    deferred.resolve("file Uploaded to Server successfully!!!!");
-                
-                });
+                deferred.resolve("file Uploaded to Server successfully!!!!");
+
+            });
         });
 
     }
@@ -99,7 +105,7 @@ uploadToServer = function () {
 
 pushDataToArray = function (islno, Train_No, stationCode, dayofJourney, arrivaltime, departuretime, distance) {
     trainData.push({
-        islno: islno,
+        slNo: islno,
         trainNo: Train_No,
         stationCode: stationCode,
         dayofJourney: dayofJourney,
@@ -110,14 +116,14 @@ pushDataToArray = function (islno, Train_No, stationCode, dayofJourney, arrivalt
 
 };
 
-saveTrainStationToDB = function(){
-        var deferred = q.defer();
-        trainStationModel.insertMany(trainData, function (err, result) {
-            if (err) return err;
-            deferred.resolve("Records successfully saved to DB");
-            
-        });
-        return deferred.promise;
+saveTrainStationToDB = function () {
+    var deferred = q.defer();
+    trainStationModel.insertMany(trainData, function (err, result) {
+        if (err) return err;
+        deferred.resolve("Records successfully saved to DB");
+
+    });
+    return deferred.promise;
 };
 
 
