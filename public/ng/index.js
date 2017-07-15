@@ -105,7 +105,7 @@ app.controller("uploadCtrl", function ($scope, $location, Upload) {
             data: { file: file }
         }).then(function successResponse(successResp) {
             console.log(successResp);
-            $scope.addToTrainDetailsTable($scope.file);
+            $scope.addToTrainDetailsTable(file);
         }, function errorResponse(errorResp) {
             console.log(errorResp);
         }, function (evt) {

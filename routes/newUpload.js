@@ -21,13 +21,9 @@ var uploadObj = {
         fs.readFile(relativefilePath, "utf8", function (err, data) {
             if (err) throw err;
             else {
-                saveToDB(data).then(function success(res){
-                   
-                    res.status(200);
-                  return res.json({
-                        "message":"successfully Upload",
-                        "status":true
-                    });
+                saveToDB(data).then(function success(res) {
+
+
                 });
             }
 
@@ -40,6 +36,14 @@ var uploadObj = {
             });
 
         });
+
+        res.status(200);
+        res.json({
+            "success": true,
+            "status": 200,
+            "message": "File has been Upload successfully into DB !!!!!"
+        });
+
 
     }
 };
