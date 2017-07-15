@@ -22,11 +22,8 @@ var uploadObj = {
             if (err) throw err;
             else {
                 saveToDB(data).then(function success(res) {
-
-
                 });
             }
-
             fs.unlink(relativefilePath, function (err) {
                 if (err) console.log(err);
                 else {
@@ -45,7 +42,39 @@ var uploadObj = {
         });
 
 
+    },
+
+    getUpload: function (req, res, next) {
+        var choice = req.query.type || "";
+        switch (choice) {
+            case "td":
+
+                var options = {
+                       perPage: parseInt(req.query.limit) || 10,
+                       page: parseInt(req.query.page) || 1,
+                };
+                var query = uploadModel.find({});
+                query.paginate(options, function (err, result) {
+                    console.log(result); 
+
+                    if(err) throw err;
+                     return res.json(resresult);
+                });
+
+
+                break;
+
+            case "tm":
+                break;
+
+
+        }
+
+
+
     }
+
+
 };
 
 saveToDB = function (data) {
