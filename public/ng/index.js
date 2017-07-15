@@ -28,6 +28,18 @@ app.controller("uploadCtrl", function ($scope, $location, Upload) {
         "height": "37px"
     };
 
+    $scope.browseStyle = {
+        "color" : "white",
+        "font-size" : "15px",
+        "border": "1px solid white",
+        "text-shadow": "0 1px 1px rgba(0, 0, 0, 0.2)",
+        "padding": "7px 8px 11px 6px",
+        "width": "104px",
+        "height": "37px",
+        "background-color" : "#42a744",
+        "border-color": "#4cae4c",
+    };
+
 
      $scope.uploaddetails = [{
          "filename":"traindetails",
