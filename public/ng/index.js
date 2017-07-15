@@ -3,7 +3,7 @@
 
 var app = angular.module("BTAPP", ['ngFileUpload']);
 
-app.controller("uploadCtrl", function ($scope, $location, Upload) {
+app.controller("uploadCtrl", function ($scope, $location, Upload, $http) {
 
     $scope.progressPercentage = 0;
     $scope.startUploadStyle = {
@@ -71,10 +71,27 @@ app.controller("uploadCtrl", function ($scope, $location, Upload) {
         "uploaddate": "15 SAT JULY 2017 12:33:00",
         "types": "./images/csv.png"
     }
-
-
-
     ];
+
+
+    $scope.getUpload = function () {
+        var query = {
+            limit: 10,
+            page: 1,
+            type: "td"
+        };
+
+        var uri = "http://localhost:1000/api/v1/uploads/getAllUpload";
+        $http.get(uri, { params: query }).then(function success(res) {
+            console.log(res);
+
+        }, function error(res) {
+
+        });
+
+    };
+
+    $scope.getUpload();
 
     $scope.submit = function (ch) {
         if ($scope.trainDetailForm.file.$valid && $scope.traindetails || $scope.trainTimeTableForm.file.$valid && $scope.trainTimeTable) {
