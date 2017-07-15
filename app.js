@@ -37,7 +37,7 @@ app.use('/', routes);
 
 
 var raw_port = process.env.PORT;
-var port = normalizePort(raw_port || '5000');
+var port = normalizePort(raw_port || '1000');
 app.set('port', port);
 var server = app.listen(port, function () {
   console.log('Server running at http://localhost:' + port);

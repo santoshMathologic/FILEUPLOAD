@@ -1,0 +1,55 @@
+Train No,Name,Type,From,Dep,To,Arr,SU,M,TU,W,TH,F,SA
+1081,Dadar - Bhusawal SF ...,SF,DR,21:45,BSL,4:00,,,,,,F,
+1082,Bhusawal - Dadar SF ...,SF,BSL,8:35,DR,16:20,,,,,,,S
+10111,Konkan Kanya Express...,Exp,CSTM,23:05,MAO,10:45,S,M,T,W,T,F,S
+10112,Konkan Kanya Express,Exp,MAO,18:00,CSTM,5:50,S,M,T,W,T,F,S
+10215,Madgaon - Ernakulam ...,SF,MAO,21:30,ERS,10:55,S,,,,,,
+10216,Ernakulam - Madgaon ...,SF,ERS,13:50,MAO,3:15,,M,,,,,
+12123,Deccan Queen,SF,CSTM,17:10,PUNE,20:25,S,M,T,W,T,F,S
+12124,Deccan Queen,SF,PUNE,7:15,CSTM,10:25,S,M,T,W,T,F,S
+12125,Pragati Express,SF,CSTM,16:25,PUNE,19:50,S,M,T,W,T,F,S
+12126,Pragati Express,SF,PUNE,7:50,CSTM,11:15,S,M,T,W,T,F,S
+12127,Mumbai CST - Pune In...,SF,CSTM,6:40,PUNE,9:57,S,M,T,W,T,F,S
+12128,Pune - Mumbai CST In...,SF,PUNE,17:55,CSTM,21:05,S,M,T,W,T,F,S
+12129,Azad Hind Express (P...,SF,PUNE,18:25,HWH,3:50,S,M,T,W,T,F,S
+12130,Azad Hind Express (P...,SF,HWH,21:50,PUNE,6:50,S,M,T,W,T,F,S
+12131,Dadar-Sainagar Shird...,SF,DR,21:45,SNSI,3:51,,M,,W,,,S
+12132,Sainagar Shirdi-Dada...,SF,SNSI,22:25,DR,4:30,S,,T,,T,,
+12133,Mumbai CST-Mangalore...,SF,CSTM,22:00,MAJN,12:40,S,M,T,W,T,F,S
+12134,Mangalore Junction -...,SF,MAJN,13:55,CSTM,4:25,S,M,T,W,T,F,S
+12135,Pune - Nagpur SF Exp...,SF,PUNE,17:40,NGP,9:25,S,,T,,T,,
+12136,Nagpur - Pune SF Exp...,SF,NGP,18:35,PUNE,9:45,,M,,W,,,S
+12137,Punjab Mail (PT),SF,CSTM,19:40,FZR,5:50,S,M,T,W,T,F,S
+12138,Punjab Mail,SF,FZR,21:40,CSTM,7:35,S,M,T,W,T,F,S
+12139,Sewagram SF Express ...,SF,CSTM,15:00,NGP,6:10,S,M,T,W,T,F,S
+12140,Sewagram SF Express,SF,NGP,21:00,CSTM,12:00,S,M,T,W,T,F,S
+12141,Mumbai LTT - Rajendr...,SF,LTT,23:35,RJPB,4:40,S,M,T,W,T,F,S
+12142,Rajendra Nagar Patna...,SF,RJPB,10:40,LTT,15:15,S,M,T,W,T,F,S
+12143,Mumbai LTT - Sultanp...,SF,LTT,16:40,SLN,19:55,S,,,,,,
+12144,Sultanpur - Mumbai L...,SF,SLN,23:55,LTT,4:10,,M,,,,,
+12145,Mumbai LTT-Puri SF E...,SF,LTT,20:35,PURI,7:40,S,,,,,,
+12146,Puri-Mumbai LTT SF E...,SF,PURI,21:25,LTT,7:30,,,T,,,,
+12147,CSMT Kolhapur - Hazr...,SF,KOP,9:05,NZM,17:10,,,T,,,,
+12148,Hazrat Nizamuddin - ...,SF,NZM,5:55,KOP,16:20,,,,,T,,
+12149,Pune-Patna SF Expres...,SF,PUNE,20:55,PNBE,4:00,S,M,T,W,T,F,S
+12150,Patna-Pune SF Expres...,SF,PNBE,22:55,PUNE,5:30,S,M,T,W,T,F,S
+12151,Samarasta SF Express...,SF,LTT,20:35,HWH,8:25,,,,W,T,,
+12152,Samarasta SF Express,SF,HWH,21:15,LTT,7:30,,,,,,F,S
+12153,Mumbai LTT - Bhopal ...,SF,LTT,16:25,HBJ,5:30,,,,,T,,
+12154,Bhopal Habibganj - M...,SF,HBJ,18:20,LTT,7:30,,,,,,F,
+12155,Shaan-E-Bhopal SF Ex...,SF,HBJ,21:05,NZM,8:00,S,M,T,W,T,F,S
+12156,Shaan E Bhopal SF Ex...,SF,NZM,20:55,HBJ,7:05,S,M,T,W,T,F,S
+12157,Pune-Solapur Hutatma...,SF,PUNE,18:00,SUR,22:00,S,M,T,W,T,F,S
+12158,Solapur-Pune Hutatma...,SF,SUR,6:30,PUNE,10:30,S,M,T,W,T,F,S
+12159,Amravati - Jabalpur ...,SF,AMI,17:45,JBP,6:55,S,M,T,W,T,F,S
+12160,Jabalpur - Amravati ...,SF,JBP,20:50,AMI,9:50,S,M,T,W,T,F,S
+12161,Lashkar Superfast Ex...,SF,LTT,16:25,AGC,13:00,,,,,,F,
+12162,Lashkar Superfast Ex...,SF,AGC,23:35,LTT,22:35,,,,,,,S
+12163,Dadar Central - Chen...,SF,DR,20:30,MS,19:45,S,M,T,W,T,F,S
+12164,Chennai Egmore - Dad...,SF,MS,6:50,DR,6:00,S,M,T,W,T,F,S
+12165,Ratnagiri Express (P...,SF,LTT,5:20,BSB,7:05,,M,,,T,F,
+12166,Ratnagiri Express,SF,BSB,20:20,LTT,21:30,,,T,,,F,S
+12167,Mumbai LTT - Varana...,SF,LTT,0:35,BSB,3:45,S,M,T,W,T,F,S
+12168,Varanasi - Mumbai LT...,SF,BSB,10:25,LTT,12:25,S,M,T,W,T,F,S
+12169,Pune-Solapur InterCi...,SF,PUNE,9:30,SUR,13:30,S,M,T,W,T,F,S
+12170,Solapur-Pune Interci...,SF,SUR,14:00,PUNE,18:05,S,M,T,W,T,F,S

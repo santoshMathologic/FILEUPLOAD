@@ -6,6 +6,27 @@ var app = angular.module("BTAPP", ['ngFileUpload']);
 app.controller("uploadCtrl", function ($scope, $location, Upload) {
 
     $scope.progressPercentage = 0;
+      $scope.startUploadStyle = {
+        "color" : "white",
+        "background-color" : "rgb(66, 184, 221)",
+        "font-size" : "15px",
+        "border": "1px solid white",
+        "text-shadow": "0 1px 1px rgba(0, 0, 0, 0.2)",
+        "padding": "7px 8px 11px 6px",
+        "width": "140px",
+        "height": "37px"
+    };
+
+     $scope.cancelUploadStyle = {
+        "color" : "white",
+        "background-color" : "#a94442",
+        "font-size" : "15px",
+        "border": "1px solid white",
+        "text-shadow": "0 1px 1px rgba(0, 0, 0, 0.2)",
+        "padding": "7px 8px 11px 6px",
+        "width": "140px",
+        "height": "37px"
+    };
 
     $scope.Upload = function () {
         if ($scope.uploadForm.file.$valid && $scope.file) {

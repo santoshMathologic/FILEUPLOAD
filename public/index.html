@@ -16,112 +16,138 @@
     <script src="bower_components/ng-file-upload-shim/ng-file-upload-shim.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="ng/index.js"></script>
+    <script src="ng/ng-custom-tab.js"></script>
 
 </head>
 
 <body ng-app="BTAPP" ng-controller="uploadCtrl">
 
-<div class="container">
-    <div class="page-header">
-        <h1>File Uploading</h1>
-    </div>
-
-
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="row">
-            <div class="col-lg-8">
-                <form name="uploadForm">
-
-
-                    <div class="btn btn-md btn-success" ngf-select ng-model="file" name="file" ngf-accept="'csv/*'" style="width: 100px" ngf-max-size="20MB"
-                        ngf-min-height="50" ngf-resize="{width: 100, height: 100}">
-                        <i class="fa fa-plus" aria-hidden="true"></i> Add files..
-                    </div>
-
-
-                    <button type="submit" class="btn btn-primary" ng-click="Upload()">
-									<i class="fa fa-upload" aria-hidden="true"></i> Start Upload
-								</button>
-
-
-                    <button type="submit" class="btn btn-danger" ng-click="cancleUpload()">
-									<i class="fa fa-ban fa-fw fa-1x" aria-hidden="true"></i> Cancle Upload
-								</button>
+    <div class="container">
+        <div class="page-header">
+            <h1>File Uploading</h1>
+        </div>
 
 
 
+        <ul class="nav nav-tabs">
+            <li class="active"><a show-tab href="#home"> <i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+            <!--  added showTab directive to prevent redirective to dashboard -->
+            <li><a show-tab href="#trainDetail"><i class="fa fa-train" aria-hidden="true"></i> TrainDetail</a></li>
+            <!--  added showTab directive to prevent redirective to dashboard -->
+            <li><a show-tab href="#trainTimeTable"><i class="fa fa-subway" aria-hidden="true"></i> TrainTimeTable</a></li>
+            <li><a show-tab href="#stationDetails"><i class="fa fa-subway" aria-hidden="true"></i> Station</a></li>
+            <!--  added showTab directive to prevent redirective to dashboard -->
+        </ul>
 
+        <div class="tab-content">
+            <div id="home" class="tab-pane fade in active">
+                <h3>HOME</h3>
+
+
+                <p>
+                    <h5 style="color: red">M</h5>athologic Technologies Private Limited is a Private incorporated on 21 July 2014. It is classified
+                    as Non-govt company and is registered at Registrar of Companies, Bangalore. Its authorized share capital
+                    is Rs. 100,000 and its paid up capital is Rs. 100,000.It is inolved in Software publishing, consultancy
+                    and supply [Software publishing includes production, supply and documentation of ready-made (non-customized)
+                    software, operating systems software, business & other applications software, computer games software
+                    for all platforms. Consultancy includes providing the best solution in the form of custom software after
+                    analyzing the user?s needs and problems. Custom software also includes made-to-order software based on
+                    orders from specific users. Also, included are writing of software of any kind following directives of
+                    the users; software maintenance, web-page design]. Mathologic Technologies Private Limited's Annual General
+                    Meeting (AGM) was last held on 30 September 2016 and as per records from Ministry of Corporate Affairs
+                    (MCA), its balance sheet was last filed on 31 March 2016. Directors of Mathologic Technologies Private
+                    Limited are Manish Kumar and Roli Saraswat. Mathologic Technologies Private Limited's Corporate Identification
+                    Number is (CIN) U72200KA2014PTC075437 and its registration number is 75437.Its Email address is manish@mathologic.com
+                    and its registered address is D3-406, L & T South City, Arekere Mico Layout, Bannerghatta Road Bangalore
+                    Bangalore KA 560076 IN , - , . Current status of Mathologic Technologies Private Limited is - Active.</p>
+
+            </div>
+            <div id="trainDetail" class="tab-pane fade">
+
+                <h1 class="page-header">Train Details</h1>
+
+                <form name="trainDetailForm">
+                    <div class="btn btn-md btn-success" ngf-select ng-model="file" name="file" ngf-pattern="'csv/*'" ngf-accept="'csv/*'" ngf-max-size="20MB"
+                        ngf-min-height="100" ngf-resize="{width: 100, height: 100}"><i class="fa fa-plus" aria-hidden="true"></i> Add files....</div>
+                    <button type="button" ng-style="startUploadStyle" ng-click="trainDetailsUpload()"> <i class="fa fa-upload" aria-hidden="true"></i> Start Upload</button>
+                    <button type="button" ng-style="cancelUploadStyle" ng-click="trainDetailsCancel()"><i class="fa fa-ban" aria-hidden="true"></i> Cancel Upload</button>
                 </form>
+
+                <table class="table table-striped table-hover table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>John</td>
+                            <td>Doe</td>
+                            <td>john@example.com</td>
+                        </tr>
+                        <tr>
+                            <td>Mary</td>
+                            <td>Moe</td>
+                            <td>mary@example.com</td>
+                        </tr>
+                        <tr>
+                            <td>July</td>
+                            <td>Dooley</td>
+                            <td>july@example.com</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+
             </div>
-            </div>
+            <div id="trainTimeTable" class="tab-pane fade">
+                <h1 class="page-header">Train Time Table</h1>
 
-            <br>
-            <br>
-
-            <div class="row">
-                <div class="col-lg-8">
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{progress}}"
-                            aria-valuemin="0" aria-valuemax="100" ng-style="{ 'width' : progress + '%'}">
-                            {{progress}}% Complete (success)
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <br>
-            <br>
-
-            <div class="row">
-                <div class="col-lg-12">
-                    <table class="table table-striped table-condensed">
+                <p>
+                    <h5 style="color: red">M</h5>athologic Technologies Private Limited is a Private incorporated on 21 July 2014. It is classified
+                    as Non-govt company and is registered at Registrar of Companies, Bangalore. Its authorized share capital
+                    is Rs. 100,000 and its paid up capital is Rs. 100,000.It is inolved in Software publishing, consultancy
+                    and supply [Software publishing includes production, supply and documentation of ready-made (non-customized)
+                    software, operating systems software, business & other applications software, computer games software
+                    for all platforms. Consultancy includes providing the best solution in the form of custom software after
+                    analyzing the user?s needs and problems. Custom software also includes made-to-order software based on
+                    orders from specific users. Also, included are writing of software of any kind following directives of
+                    the users; software maintenance, web-page design]. Mathologic Technologies Private Limited's Annual General
+                    Meeting (AGM) was last held on 30 September 2016 and as per records from Ministry of Corporate Affairs
+                    (MCA), its balance sheet was last filed on 31 March 2016. Directors of Mathologic Technologies Private
+                    Limited are Manish Kumar and Roli Saraswat. Mathologic Technologies Private Limited's Corporate Identification
+                    Number is (CIN) U72200KA2014PTC075437 and its registration number is 75437.Its Email address is manish@mathologic.com
+                    and its registered address is D3-406, L & T South City, Arekere Mico Layout, Bannerghatta Road Bangalore
+                    Bangalore KA 560076 IN , - , . Current status of Mathologic Technologies Private Limited is - Active.</p>
 
 
-								<thead>
-									<tr>
-										<th>Sl No</th>
-                                        <th>Name</th>
-                                        <th>Size</th>
-										<th>Status</th>
-										<th>Extension</th>
-										<th>Uploader</th>
-										<th>Date</th>
-										<th>Action</th>
-									</tr>
-								</thead>
-
-								<tbody>
-									<tr ng-repeat="tdl in trainDetailsList">
-										<td>{{$index+1}}</td>
-                                        <td>{{tdl.fileName}}</td>
-                                        <td>{{tdl.size}}</td>
-										<td>{{tdl.status}}</td>
-										<td>{{tdl.fileExtension}}</td>
-										<td>{{tdl.uploader}}</td>
-										<td>{{tdl.uploadDate | date : "fullDate" }}</td>
-										<td>
-											<button class="btn btn-danger btn-xs fa fa-trash"
-												ng-click="deleteTrainDetails(tdl)"></button>
-											<button class="btn btn-warning btn-xs fa fa-edit"></button>
-
-										</td>
-
-									</tr>
-								</tbody>
-							</table>
-                </div>
             </div>
 
+
+            <div id="stationDetails" class="tab-pane fade">
+
+            </div>
 
 
         </div>
 
+
+
+
     </div>
 
-</div>
 
 
+
+
+
+
+
+
+
+    </div>
 </body>
 
 </html>
