@@ -28,6 +28,44 @@ app.controller("uploadCtrl", function ($scope, $location, Upload) {
         "height": "37px"
     };
 
+
+     $scope.uploaddetails = [{
+         "filename":"traindetails",
+         "extenstion":"csv",
+         "uploader":"santosh",
+         "size" :"13352",
+         "uploaddate" :"15 SAT JULY 2017 12:33:00",
+         "types" :"./images/csv.png"
+     },
+        {
+         "filename":"traindetails",
+         "extenstion":"csv",
+         "uploader":"santosh",
+         "size" :"13352",
+         "uploaddate" :"15 SAT JULY 2017 12:33:00",
+         "types" :"./images/csv.png"
+     },{
+         "filename":"traindetails",
+         "extenstion":"csv",
+         "uploader":"santosh",
+         "size" :"13352",
+         "uploaddate" :"15 SAT JULY 2017 12:33:00",
+         "types" :"./images/csv.png"
+     },{
+         "filename":"traindetails",
+         "extenstion":"csv",
+         "uploader":"santosh",
+         "size" :"13352",
+         "uploaddate" :"15 SAT JULY 2017 12:33:00",
+         "types" :"./images/csv.png"
+     }
+    
+    
+    
+    ];
+
+
+
     $scope.Upload = function () {
         if ($scope.uploadForm.file.$valid && $scope.file) {
             Upload.upload({
