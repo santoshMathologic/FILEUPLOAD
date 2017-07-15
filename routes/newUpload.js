@@ -44,27 +44,36 @@ var uploadObj = {
 
     },
 
-    getUpload: function (req, res, next) {
+    getUpload: function (req, res) {
         var choice = req.query.type || "";
         switch (choice) {
             case "td":
 
                 var options = {
-                       perPage: parseInt(req.query.limit) || 10,
-                       page: parseInt(req.query.page) || 1,
+                    perPage: parseInt(req.query.limit) || 10,
+                    page: parseInt(req.query.page) || 1,
                 };
-                var query = uploadModel.find({});
+                var query = uploadModel.find({"uploadFileType":choice}, { "uploadFileType":1,"fileType": 1, "message": 1, "_id": 0, "status": 1 });
                 query.paginate(options, function (err, result) {
-                    console.log(result); 
-
-                    if(err) throw err;
-                     return res.json(resresult);
+                    if (err) throw err;
+                    res.json(result);
                 });
 
 
                 break;
 
             case "tm":
+
+
+                var options1 = {
+                    perPage: parseInt(req.query.limit) || 10,
+                    page: parseInt(req.query.page) || 1,
+                };
+                var query1 = uploadModel.find({"uploadFileType":choice}, {"uploadFileType":1,"fileType": 1, "message": 1, "_id": 0, "status": 1 });
+                query1.paginate(options1, function (err, result) {
+                    if (err) throw err;
+                    res.json(result);
+                });
                 break;
 
 
