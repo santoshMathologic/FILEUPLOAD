@@ -78,8 +78,8 @@ app.controller("uploadCtrl", function ($scope, $location, Upload) {
 
 
 
-    $scope.Upload = function () {
-        if ($scope.uploadForm.file.$valid && $scope.file) {
+    $scope.trainDetailsUpload = function () {
+        if ($scope.trainDetailForm.file.$valid && $scope.file) {
             Upload.upload({
                 url: '/api/v1/uploads',
                 data: { file: $scope.file }

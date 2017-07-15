@@ -6,6 +6,8 @@ var fs = require('fs');
 
 
 var upload = require("./upload.js");
+var newupload = require("./newUpload.js");
+
 
 var uploadDest = Multer({
     dest: './uploads'
@@ -15,7 +17,9 @@ var uploadDest = Multer({
 
 
 
-router.post('/api/v1/uploads', uploadDest.single("file"), upload.parseCSVFile);
+//router.post('/api/v1/uploads', uploadDest.single("file"), upload.parseCSVFile);
+
+router.post('/api/v1/uploads', uploadDest.single("file"), newupload.parseCSVRecords);
 
 
 
