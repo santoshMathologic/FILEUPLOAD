@@ -77,7 +77,7 @@ app.controller("uploadCtrl", function ($scope, $location, Upload) {
     ];
 
     $scope.submit = function (ch) {
-        if ($scope.trainDetailForm.file.$valid && $scope.traindetails) {
+        if ($scope.trainDetailForm.file.$valid && $scope.traindetails || $scope.trainTimeTableForm.file.$valid && $scope.trainTimeTable) {
 
 
             switch (ch) {
@@ -86,7 +86,7 @@ app.controller("uploadCtrl", function ($scope, $location, Upload) {
                     $scope.trainDetailsUpload($scope.traindetails);
                     break;
                 case "trainTimeTable":
-
+                    $scope.trainTimeTableUpload($scope.trainTimeTable);
                     break;
                 default:
                     break;
@@ -99,6 +99,25 @@ app.controller("uploadCtrl", function ($scope, $location, Upload) {
 
 
     $scope.trainDetailsUpload = function (file) {
+
+        Upload.upload({
+            url: '/api/v1/uploads',
+            data: { file: file }
+        }).then(function successResponse(successResp) {
+            console.log(successResp);
+            $scope.addToTrainDetailsTable(file);
+        }, function errorResponse(errorResp) {
+            console.log(errorResp);
+        }, function (evt) {
+            $scope.progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
+            $scope.progress = Math.round(evt.loaded * 100 / evt.total);
+            console.log("" + $scope.progressPercentage);
+            //console.log('progress: ' + $scope.progressPercentage + '% ' + evt.config.data.file.name);
+        });
+
+    };
+
+    $scope.trainTimeTableUpload = function (file) {
 
         Upload.upload({
             url: '/api/v1/uploads',

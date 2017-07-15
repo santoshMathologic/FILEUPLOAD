@@ -7,6 +7,7 @@ var uploadSchema = new mongoose.Schema({
     isProcessed: { type: Boolean, default: false },
     status: { type: String, default: null },
     message: String,
+    uploadFileType: { type: String, default: "td" },
     markDelete: { type: Boolean, default: false },
     uploadDateTime: { type: Date, default: Date.now }
 });
