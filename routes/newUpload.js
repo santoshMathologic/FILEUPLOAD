@@ -21,7 +21,14 @@ var uploadObj = {
         fs.readFile(relativefilePath, "utf8", function (err, data) {
             if (err) throw err;
             else {
-                saveToDB(data)
+                saveToDB(data).then(function success(res){
+                   
+                    res.status(200);
+                  return res.json({
+                        "message":"successfully Upload",
+                        "status":true
+                    });
+                });
             }
 
             fs.unlink(relativefilePath, function (err) {
@@ -39,7 +46,7 @@ var uploadObj = {
 
 saveToDB = function (data) {
 
-
+    var deferred = q.defer();
     var uploadData = {
         data: data,
         fileType: "csv",
@@ -50,10 +57,11 @@ saveToDB = function (data) {
     };
 
     uploadModel.create(uploadData, function (err, post) {
-        if (err) return next(err);
-        res.json(post.id);
+        if (err) throw err;
+        deferred.resolve("Upload Successfully");
     });
 
+    return deferred.promise;
 
 };
 

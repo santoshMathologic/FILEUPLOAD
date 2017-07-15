@@ -68,18 +68,23 @@
 
                 <h1 class="page-header">Train Details</h1>
 
-
+                <form name="trainDetailForm">
                 <div class="row">
                     <div class="col-md-8">
-                        <form name="trainDetailForm">
+                      
 
                             <div class="col-sm-2">
-                                <div ng-style="browseStyle" ngf-select ng-model="file" name="file" ngf-pattern="'csv/*'" ngf-accept="'csv/*'" ngf-max-size="20MB"
-                                    ngf-min-height="100" ngf-resize="{width: 100, height: 100}"><i class="fa fa-plus" aria-hidden="true"></i> Add files....</div>
+
+                                <div ng-style="browseStyle" ngf-select ng-model="traindetails" name="file" ngf-accept="'csv/*'" style="width: 250px" ngf-max-size="20MB"
+                                ngf-min-height="50" ngf-resize="{width: 100, height: 100}">
+                                <i class="fa fa-plus" aria-hidden="true"></i> Add files..
+                            </div>
+
+                               
                             </div>
 
                             <div class="col-sm-2">
-                                <button type="button" ng-style="startUploadStyle" ng-click="trainDetailsUpload()"> <i class="fa fa-upload" aria-hidden="true"></i> Start Upload</button>
+                                <button type="submit" ng-style="startUploadStyle" ng-click="submit('trainDetails')"> <i class="fa fa-upload" aria-hidden="true"></i> Start Upload</button>
                             </div>
 
                             <div class="col-sm-2">
@@ -88,7 +93,7 @@
 
 
 
-                        </form>
+                      
                     </div>
 
                     <div class="col-md-4">
@@ -104,6 +109,7 @@
 
 
                 </div>
+                </form>
                 <div class="row">
 
                     <div class="col-md-12 text-right">
