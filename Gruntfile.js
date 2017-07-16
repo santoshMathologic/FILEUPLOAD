@@ -9,13 +9,10 @@ module.exports = function (grunt) {
                 files: ['public/css/**/*.css'],
                 tasks: ['cssmin']
             },
-
             set2: {
                 files: ['public/js/**/*.js'],
                 tasks: ['uglify']
             }
-
-
         },
         cssmin: {
             dev: {
@@ -24,16 +21,16 @@ module.exports = function (grunt) {
         },
 
         uglify: {
-            minJS: {
+            dev: {
                 files: {
-                 'public/js/all.min.js': ['public/js/**/3.js', 'public/js/**/2.js', 'public/js/**/1.js'],
-                 expand: true,    
-               	 flatten: false,
+                    'public/js/all.min.js': ['public/js/**/3.js', 'public/js/**/2.js', 'public/js/**/1.js'],
+                    expand: true,
+                    flatten: false,
                 }
 
             }
         },
-        
+
         browserSync: {
             dev: {
                 bsFiles: {
@@ -59,6 +56,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-css');
 
-    grunt.registerTask('default', 'watch:set1', 'watch:set2');
-    //grunt.registerTask('default', ['browserSync', 'watch:set1', 'watch:set2']);
+    // grunt.registerTask('default', 'watch:set1', 'watch:set2');
+    grunt.registerTask('default', ['browserSync', 'watch:set1', 'watch:set2']);
 };
