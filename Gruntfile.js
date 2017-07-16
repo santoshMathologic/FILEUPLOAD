@@ -6,30 +6,34 @@ module.exports = function (grunt) {
 
         pkg: grunt.file.readJSON("package.json"),
 
-        uglify: {
-            my_target: {
-                files: {
-                   'public/js/output.min.js' : ['public/js/1.js', 'public/js/2.js', 'public/js/3.js']
-                }
-            }
-        },
+
         watch: {
             files: 'public/scss/**/*.scss',
-            tasks: ['sass']
+            tasks: ['sass', 'uglify']
         },
         sass: {
             dev: {
                 files: {
-                    'public/css/main.css': 'public/scss/style1.scss'
+                    'public/css/main.css': 'public/scss/style.scss'
+                }
+            }
+        },
+        uglify: {
+            dev: {
+                files: {
+                    'public/js/output.min.js': ['public/js/1.js', 'public/js/2.js', 'public/js/3.js']
                 }
             }
         },
         browserSync: {
             dev: {
                 bsFiles: {
-                    src : [
+                    src: [
                         'public/css/*.css',
-                        'public/*.html'
+                        'public/css/*.scss',
+                        'public/js/*.js',
+                        'public/*.html',
+                        "public/ng/**/*"
                     ]
                 },
                 options: {
@@ -47,5 +51,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-css');
     //grunt.registerTask('default', 'concat min cssmin');
-    grunt.registerTask('default', ['browserSync', 'watch','uglify']);
+    grunt.registerTask('default', ['browserSync', 'watch']);
 };
