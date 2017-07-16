@@ -1,6 +1,6 @@
 var mkdirp = require('mkdirp');
 module.exports = function (grunt) {
-    
+
     var inDirectory = "public_dev";
     var outDirectory = "public";
     var inAbsolutePath = inDirectory + "/";
@@ -15,32 +15,20 @@ module.exports = function (grunt) {
     grunt.initConfig({
 
         pkg: grunt.file.readJSON("package.json"),
-        concat: {
-            js: {
-                src: 'public_dev/js/*.js',
-                dest: 'public_dev/js/concat.js'
-            },
-            css: {
-                src: 'public_dev/css/*.css',
-                dest: 'public_dev/css/style.min.css'
-            }
-        },
-        min: {
-            js: {
-                src: 'public_dev/js/sidebar.js',
-                dest: 'public_dev/js/concat.min.js'
-            }
-        },
-        cssmin: {
-            css: {
-                src: 'public_dev/css/style.css',
-                dest: 'public_dev/css/concat.min.css'
+
+        uglify: {
+            my_target: {
+                files: {
+                    'public_dev/js/output.min.js': ['public_dev/js/1.js', 'public_dev/js/2.js','public_dev/js/3.js']
+                }
             }
         }
     });
 
     //grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-browser-sync');
+    grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-css');
-    grunt.registerTask('default', 'concat min cssmin');
+    //grunt.registerTask('default', 'concat min cssmin');
 
 };
