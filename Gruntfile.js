@@ -3,37 +3,45 @@ module.exports = function (grunt) {
 
 
     grunt.initConfig({
-
         pkg: grunt.file.readJSON("package.json"),
-
-
         watch: {
-            files: 'public/scss/**/*.scss',
-            tasks: ['sass', 'uglify']
+            set1: {
+                files: ['public/css/**/*.css'],
+                tasks: ['cssmin']
+            },
+
+            set2: {
+                files: ['public/js/**/*.js'],
+                tasks: ['uglify']
+            }
+
+
         },
-        sass: {
+        cssmin: {
             dev: {
-                files: {
-                    'public/css/main.css': 'public/scss/style.scss'
-                }
+                files: [{ 'public/css/main.min.css': 'public/css/main.css' }]
             }
         },
+
         uglify: {
-            dev: {
+            minJS: {
                 files: {
-                    'public/js/output.min.js': ['public/js/1.js', 'public/js/2.js', 'public/js/3.js']
+                 'public/js/all.min.js': ['public/js/**/3.js', 'public/js/**/2.js', 'public/js/**/1.js'],
+                 expand: true,    
+               	 flatten: false,
                 }
+
             }
         },
+        
         browserSync: {
             dev: {
                 bsFiles: {
                     src: [
                         'public/css/*.css',
-                        'public/css/*.scss',
                         'public/js/*.js',
                         'public/*.html',
-                        "public/ng/**/*"
+                        'public/ng/**/*'
                     ]
                 },
                 options: {
@@ -44,12 +52,13 @@ module.exports = function (grunt) {
         }
     });
 
-    //grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-browser-sync');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-css');
-    //grunt.registerTask('default', 'concat min cssmin');
-    grunt.registerTask('default', ['browserSync', 'watch']);
+
+    grunt.registerTask('default', 'watch:set1', 'watch:set2');
+    //grunt.registerTask('default', ['browserSync', 'watch:set1', 'watch:set2']);
 };
