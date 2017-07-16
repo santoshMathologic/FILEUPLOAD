@@ -1,9 +1,8 @@
 var mkdirp = require('mkdirp');
 module.exports = function (grunt) {
-
+    
     var inDirectory = "public_dev";
     var outDirectory = "public";
-
     var inAbsolutePath = inDirectory + "/";
     var outAbsolutePath = outDirectory + "/";
 
@@ -14,19 +13,34 @@ module.exports = function (grunt) {
     });
 
     grunt.initConfig({
+
+        pkg: grunt.file.readJSON("package.json"),
+        concat: {
+            js: {
+                src: 'public_dev/js/*.js',
+                dest: 'public_dev/js/concat.js'
+            },
+            css: {
+                src: 'public_dev/css/*.css',
+                dest: 'public_dev/css/style.min.css'
+            }
+        },
+        min: {
+            js: {
+                src: 'public_dev/js/sidebar.js',
+                dest: 'public_dev/js/concat.min.js'
+            }
+        },
         cssmin: {
-            my_target: {
-                src: inAbsolutePath + "/" + "css" + "/*.css",
-                dest: outAbsolutePath + "/" + "css" + "/" + "output.min.css"
+            css: {
+                src: 'public_dev/css/style.css',
+                dest: 'public_dev/css/concat.min.css'
             }
         }
-
     });
 
+    //grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.loadNpmTasks('grunt-css');
+    grunt.registerTask('default', 'concat min cssmin');
 
-
-    // grunt.registerTask('default', grunt.help.display);
-    grunt.registerTask('default', 'cssmin', function (res) {
-        console.log('hello world');
-    });
 };
