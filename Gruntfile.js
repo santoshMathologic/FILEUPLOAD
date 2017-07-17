@@ -33,6 +33,10 @@ module.exports = function (grunt) {
                 files: ['public_dev/ng/**/*', 'public_dev/**/*.html'],
                 tasks: ['copy']
             },
+              set4: {
+                files: ['public_dev/less/**/*'],
+                tasks: ['less']
+            },
 
         },
         cssmin: {
@@ -67,14 +71,39 @@ module.exports = function (grunt) {
         },
         clean: {
             public_prod: {
-                src: [  "public/css/**/*.min.css",
-                        "public/css/**/*.css",
-                        "public/js/**/*.min.js",
-                        "public/js/**/*.js",
-                        "public/ng/**/*",
-                        "public/**/*.html",
-                        
+                src: ["public/css/**/*.min.css",
+                    "public/css/**/*.css",
+                    "public/js/**/*.min.js",
+                    "public/js/**/*.js",
+                    "public/ng/**/*",
+                    "public/**/*.html",
+
                 ]
+            }
+        }, less: {
+            development: {
+                options: {
+                    paths: ['public_dev/less']
+                },
+                files: {
+                    'public/less/less.min.css': 'public_dev/less/**/*.less'
+                }
+            },
+            production: {
+                options: {
+                    paths: ['public/less'],
+                    plugins: [
+                        new (require('less-plugin-autoprefix'))({ browsers: ["last 2 versions"] }),
+                        new (require('less-plugin-clean-css')) //(cleanCssOptions)
+                    ],
+                    modifyVars: {
+                        imgPath: '"https://www.w3schools.com/css/trolltunga.jpg"',
+                        bgColor: 'red'
+                    }
+                },
+                files: {
+                    'public/less/less.min.css': 'public_dev/less/**/*.less'
+                }
             }
         },
         browserSync: {
@@ -108,6 +137,7 @@ module.exports = function (grunt) {
         },
     });
 
+    grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-browser-sync');
@@ -118,5 +148,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-processhtml');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.registerTask('default', ['browserSync', 'watch','clean:public_prod']);
+    grunt.registerTask('default', ['browserSync', 'watch', 'clean:public_prod']);
 };
