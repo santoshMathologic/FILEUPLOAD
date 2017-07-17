@@ -146,7 +146,8 @@ module.exports = function (grunt) {
         },
         clean: {
             public_prod: {
-                src: ["public/css/**/*.min.css",
+                src: [
+                    "public/css/**/*.min.css",
                     "public/css/**/*.css",
                     "public/js/**/*.min.js",
                     "public/js/**/*.js",
