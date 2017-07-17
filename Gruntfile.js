@@ -37,10 +37,24 @@ module.exports = function (grunt) {
             set4: {
                 files: ['public_dev/less/**/*'],
                 tasks: ['less']
+            }, set5: {
+                files: ['public_dev/sass/**/*'],
+                tasks: ['sass']
             },
 
 
 
+        },
+        sass: {
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: 'public_dev/scss',
+                    src: ['*.scss'],
+                    dest: 'public/css',
+                    ext: '.css'
+                }]
+            }
         },
         cssmin: {
             options: {
@@ -212,5 +226,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.registerTask('default', ['browserSync', 'watch', 'clean:public_prod']);
-    grunt.registerTask('prod', ['image','imagemin']);
+    grunt.registerTask('prod', ['image', 'imagemin']);
 };
