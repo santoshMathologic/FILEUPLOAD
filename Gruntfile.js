@@ -3,6 +3,7 @@
 " use strict";
 
 var mkdirp = require('mkdirp');
+var mozjpeg = require('imagemin-mozjpeg');
 /**
  *  Grunt Task Runner 
  *  @param  {} grunt
@@ -197,6 +198,7 @@ module.exports = function (grunt) {
         },
     });
 
+    grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.loadNpmTasks('grunt-image');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-clean');
@@ -209,5 +211,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-processhtml');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.registerTask('default', ['browserSync', 'watch', 'clean:public_prod', 'image','imagemin']);
+    grunt.registerTask('default', ['browserSync', 'watch', 'clean:public_prod']);
+    grunt.registerTask('prod', ['image','imagemin']);
 };

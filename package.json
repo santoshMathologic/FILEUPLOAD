@@ -47,5 +47,8 @@
     "path": "^0.12.7",
     "q": "^1.5.0",
     "serve-favicon": "~2.3.0"
+  },
+  "dependencies": {
+    "imagemin-mozjpeg": "^6.0.0"
   }
 }
