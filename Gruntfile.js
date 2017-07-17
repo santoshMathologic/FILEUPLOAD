@@ -89,7 +89,7 @@ module.exports = function (grunt) {
                 },
                 options: {
                     watchTask: true,
-                    notify: false,
+                    notify: true,
                     open: true,  //  automatic open the index.html files in browser
                     reload: true,
                     spawn: true,
