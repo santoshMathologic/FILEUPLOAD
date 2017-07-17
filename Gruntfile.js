@@ -31,7 +31,7 @@ module.exports = function (grunt) {
                 tasks: ['uglify']
             },
             set3: {
-                files: ['public_dev/ng/**/*', 'public_dev/**/*.html'],
+                files: ['public_dev/ng/**/*', 'public_dev/**/*.html','public_dev/bower_components/'],
                 tasks: ['copy']
             },
             set4: {
@@ -138,8 +138,18 @@ module.exports = function (grunt) {
             },
             html: {
                 files: [
-                    { src: 'public_dev/**/*.html', dest: 'public/index.html' },]
+                    { src: 'public_dev/index.html', dest: 'public/index.html' },]
             },
+            bower_comp: {
+                files: [
+                    {
+                        expand: true,
+                        dest: 'public/bower_components',
+                        cwd: 'public_dev/bower_components',
+                        src: '**',
+                    }
+                ]
+            }
         },
         clean: {
             public_prod: {
@@ -223,6 +233,18 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-processhtml');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.registerTask('default', ['browserSync', 'watch', 'clean:public_prod']);
+
+
+    //  grunt.registerTask('default', ['browserSync', 'watch', 'clean:public_prod'],function(target){
+    //    console.log("The main target is "+target);
+    // });
+
+    grunt.registerTask('default', function (target) {
+        grunt.task.run('browserSync');
+        grunt.task.run('watch');
+        grunt.task.run('clean:public_prod');
+
+    });
+
     grunt.registerTask('prod', ['image', 'imagemin']);
 };
