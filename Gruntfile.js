@@ -22,28 +22,16 @@ module.exports = function (grunt) {
                 tasks: ['uglify']
             },
             set3: {
-                files: ['public_dev/**/'],
-                tasks: ['processhtml']
-            }
+                files: ['public_dev/**/*.html', 'public_dev/ng/**'],
+
+                tasks: ['copy']
+            },
+
         },
         cssmin: {
             dev: {
                 // destination              //source
                 files: [{ 'public/css/main.min.css': 'public_dev/css/main.css' }]
-            }
-        },
-        ngmin: {
-            dev: {
-                // destination            //source
-                files: [{ 'public/**/': 'public_dev/**/*.html' }]
-            }
-        },
-
-        processhtml: {
-            dist: {
-                files: {
-                    'public/index.html': ['public_dev/index.html']
-                }
             }
         },
 
@@ -58,14 +46,28 @@ module.exports = function (grunt) {
 
             }
         },
+        copy: {
+            html: {
+                files: [
+                    { src: 'public_dev/**/*.html', dest: 'public/index.html' },
+
+                ]
+            },
+            ng: {
+                files: [
+                    { expand: true, src: ['public_dev/ng/**/*'], dest: 'public/ng/' }
+                ]
+            }
+        },
 
         browserSync: {
             dev: {
                 bsFiles: {
                     src: [
                         'public_dev/css/*.css',
-                        'public_dev/*.html',
-                        'public_dev/ng/**/*'
+                        'public_dev/index.html',
+
+
                     ]
                 },
                 options: {
@@ -97,7 +99,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-css');
     grunt.loadNpmTasks('grunt-processhtml');
     grunt.loadNpmTasks('grunt-contrib-clean');
-
-    // grunt.registerTask('default', 'watch:set1', 'watch:set2');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.registerTask('default', ['browserSync', 'watch']);
 };
