@@ -1,13 +1,21 @@
+
+
 " use strict";
 
 var mkdirp = require('mkdirp');
+/**
+ *  Grunt Task Runner 
+ *  @param  {} grunt
+ *  @author santosh
+ *  @since 17 july 17
+ */
 module.exports = function (grunt) {
     require('load-grunt-tasks')(grunt);
 
     mkdirp('public_dev', function (err) {
         if (err) throw new Error("Error in Creation of public_dev" + err);
         else
-            console.log('created Successfully');
+            console.log('public_dev created Successfully');
     });
 
     grunt.initConfig({
@@ -22,8 +30,7 @@ module.exports = function (grunt) {
                 tasks: ['uglify']
             },
             set3: {
-                files: ['public_dev/**/*.html', 'public_dev/ng/**'],
-
+                files: ['public_dev/ng/**/*', 'public_dev/**/*.html'],
                 tasks: ['copy']
             },
 
@@ -47,26 +54,36 @@ module.exports = function (grunt) {
             }
         },
         copy: {
+            files: {
+                cwd: 'public_dev/ng',  // set working folder / root to copy
+                src: '**',           // copy all files and subfolders
+                dest: 'public/ng',    // destination folder
+                expand: true           // required when using cwd
+            },
             html: {
                 files: [
-                    { src: 'public_dev/**/*.html', dest: 'public/index.html' },
-
-                ]
+                    { src: 'public_dev/**/*.html', dest: 'public/index.html' },]
             },
-            ng: {
-                files: [
-                    { expand: true, src: ['public_dev/ng/**/*'], dest: 'public/ng/' }
+        },
+        clean: {
+            public_prod: {
+                src: [  "public/css/**/*.min.css",
+                        "public/css/**/*.css",
+                        "public/js/**/*.min.js",
+                        "public/js/**/*.js",
+                        "public/ng/**/*",
+                        "public/**/*.html",
+                        
                 ]
             }
         },
-
         browserSync: {
             dev: {
                 bsFiles: {
                     src: [
-                        'public_dev/css/*.css',
-                        'public_dev/index.html',
-
+                        // 'public_dev/css/*.css',
+                        // 'public_dev/index.html',
+                        'public/'
 
                     ]
                 },
@@ -91,6 +108,7 @@ module.exports = function (grunt) {
         },
     });
 
+    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-browser-sync');
     grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -100,5 +118,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-processhtml');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.registerTask('default', ['browserSync', 'watch']);
+    grunt.registerTask('default', ['browserSync', 'watch','clean:public_prod']);
 };
