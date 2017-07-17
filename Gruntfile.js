@@ -37,10 +37,7 @@ module.exports = function (grunt) {
                 files: ['public_dev/less/**/*'],
                 tasks: ['less']
             },
-             set5: {
-                files: ['public_dev/assets/**/*'],
-                tasks: ['images']
-            },
+
 
 
         },
@@ -59,6 +56,27 @@ module.exports = function (grunt) {
                 }]
             }
         },
+        imagemin: {
+            static: {
+                options: {
+                    optimizationLevel: 3,
+                    svgoPlugins: [{ removeViewBox: false }],
+                    use: [mozjpeg()] // Example plugin usage
+                },
+                files: {
+                    'public/assets/Capture.png': 'public_dev/assets/Capture.png',
+
+                }
+            },
+            dynamic: {
+                files: [{
+                    expand: true,
+                    cwd: 'public_dev/assets',
+                    src: ['**/*.{png,jpg,gif}'],
+                    dest: 'public/assets'
+                }]
+            }
+        },
         image: {
             static: {
                 options: {
@@ -73,10 +91,8 @@ module.exports = function (grunt) {
                     svgo: true
                 },
                 files: {
-                    'public/assets/*.png': 'public_dev/assets/*.png',
-                    'public/assets/*.jpg': 'public_dev/assets/*.jpg',
-                    'public/assets/*.gif': 'public_dev/assets/*.gif',
-                    'public/assets/*.svg': 'public_dev/assets/*.svg'
+                    'public/assets/Capture.png': 'public_dev/assets/Capture.png',
+
                 }
             },
             dynamic: {
@@ -181,7 +197,7 @@ module.exports = function (grunt) {
         },
     });
 
-     grunt.loadNpmTasks('grunt-image');
+    grunt.loadNpmTasks('grunt-image');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
@@ -193,5 +209,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-processhtml');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.registerTask('default', ['browserSync', 'watch', 'clean:public_prod']);
+    grunt.registerTask('default', ['browserSync', 'watch', 'clean:public_prod', 'image','imagemin']);
 };
