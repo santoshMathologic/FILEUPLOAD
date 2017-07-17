@@ -47,7 +47,7 @@ app.controller("uploadCtrl", function ($scope, $location, Upload, $http) {
         "uploader": "santosh",
         "size": "13352",
         "uploaddate": "15 SAT JULY 2017 12:33:00",
-        "types": "./images/csv.png"
+        "types": "./assets/csv.png"
     },
     {
         "filename": "traindetails",
@@ -55,21 +55,21 @@ app.controller("uploadCtrl", function ($scope, $location, Upload, $http) {
         "uploader": "santosh",
         "size": "13352",
         "uploaddate": "15 SAT JULY 2017 12:33:00",
-        "types": "./images/csv.png"
+        "types": "./assets/csv.png"
     }, {
         "filename": "traindetails",
         "extenstion": "csv",
         "uploader": "santosh",
         "size": "13352",
         "uploaddate": "15 SAT JULY 2017 12:33:00",
-        "types": "./images/csv.png"
+        "types": "./assets/csv.png"
     }, {
         "filename": "traindetails",
         "extenstion": "csv",
         "uploader": "santosh",
         "size": "13352",
         "uploaddate": "15 SAT JULY 2017 12:33:00",
-        "types": "./images/csv.png"
+        "types": "./assets/csv.png"
     }
     ];
 
