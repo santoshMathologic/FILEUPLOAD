@@ -5,24 +5,9 @@ body {
 }
 
 
-h2{
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 20px;
-    color:red;
-    padding: 10px 20px 30px 100px;
-    text-align: center;
-    border: 1px solid green;
-    border-radius: 10px;
-}
 
 h1{
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    font-size: 20px;
-    color:red;
-    padding: 10px 20px 30px 100px;
-    text-align: center;
-    border: 1px solid green;
-    border-radius: 10px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;       
 }
 
 
