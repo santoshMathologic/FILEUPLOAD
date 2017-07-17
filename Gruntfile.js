@@ -33,18 +33,62 @@ module.exports = function (grunt) {
                 files: ['public_dev/ng/**/*', 'public_dev/**/*.html'],
                 tasks: ['copy']
             },
-              set4: {
+            set4: {
                 files: ['public_dev/less/**/*'],
                 tasks: ['less']
             },
+             set5: {
+                files: ['public_dev/assets/**/*'],
+                tasks: ['images']
+            },
+
 
         },
         cssmin: {
-            dev: {
-                // destination              //source
-                files: [{ 'public/css/main.min.css': 'public_dev/css/main.css' }]
+            options: {
+                mergeIntoShorthands: false,
+                roundingPrecision: -1
+            },
+            target: {
+                files: [{
+                    expand: true,
+                    cwd: 'public_dev/css',
+                    src: ['*.css', '!*.min.css'],
+                    dest: 'public/css',
+                    ext: '.min.css'
+                }]
             }
         },
+        image: {
+            static: {
+                options: {
+                    pngquant: true,
+                    optipng: false,
+                    zopflipng: true,
+                    jpegRecompress: false,
+                    jpegoptim: true,
+                    mozjpeg: true,
+                    guetzli: false,
+                    gifsicle: true,
+                    svgo: true
+                },
+                files: {
+                    'public/assets/*.png': 'public_dev/assets/*.png',
+                    'public/assets/*.jpg': 'public_dev/assets/*.jpg',
+                    'public/assets/*.gif': 'public_dev/assets/*.gif',
+                    'public/assets/*.svg': 'public_dev/assets/*.svg'
+                }
+            },
+            dynamic: {
+                files: [{
+                    expand: true,
+                    cwd: 'public_dev/assets',
+                    src: ['**/*.{png,jpg,gif,svg}'],
+                    dest: 'public/assets'
+                }]
+            }
+        },
+
 
         uglify: {
             dev: {
@@ -137,6 +181,7 @@ module.exports = function (grunt) {
         },
     });
 
+     grunt.loadNpmTasks('grunt-image');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-cssmin');

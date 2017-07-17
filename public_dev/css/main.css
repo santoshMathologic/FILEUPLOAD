@@ -1,11 +1,17 @@
-.main_Wrappre {
-   color : red;
-   font-size : 0.2em;
-   font: 100px;
+
+body {
+    background-color: #f8f8f8;
 }
 
-.wrapper{
-    font-family: 'Times New Roman', Times, serif;
+
+h2{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
+    color:red;
+    padding: 10px 20px 30px 100px;
+    text-align: center;
+    border: 1px solid green;
+    border-radius: 10px;
 }
 
 h1{
@@ -17,7 +23,5 @@ h1{
     border: 1px solid green;
     border-radius: 10px;
 }
-
-
 
 
