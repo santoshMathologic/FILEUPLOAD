@@ -41,17 +41,14 @@ module.exports = function (grunt) {
                 files: ['public_dev/sass/**/*'],
                 tasks: ['sass']
             },
-
-
-
         },
         sass: {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: 'public_dev/scss',
+                    cwd: 'public_dev/sass',
                     src: ['*.scss'],
-                    dest: 'public/css',
+                    dest: 'public/sass',
                     ext: '.css'
                 }]
             }
