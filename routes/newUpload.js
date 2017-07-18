@@ -13,6 +13,7 @@ var async = require('async');
 var uploadModel = require('../models/upload.js');
 var trainModel = require('../models/train.js');
 var station = require('../models/station.js');
+var tt = require('../models/trainType.js');
 
 
 var traindata = [];
@@ -90,13 +91,17 @@ var uploadObj = {
             case "td":
             case "TD":
                 uploadModel.find({ "uploadFileType": ch }, { "data": 1 }, function (err, result) {
-                    processTrainDetailsRecordData(result[0]._doc.data);
+                    processTrainDetailsRecord(result[0]._doc.data);
                 });
                 break;
 
 
             case "tm":
             case "TM":
+                uploadModel.find({ "uploadFileType": ch }, { "data": 1 }, function (err, result) {
+                    processTrainStationRecord(result[0]._doc.data);
+                });
+
                 break;
 
         }
@@ -108,8 +113,15 @@ var uploadObj = {
 
 };
 
+processTrainStationRecord = function(resultdata){
+var deferred = q.defer();
 
-processTrainDetailsRecordData = function (resultdata) {
+console.log(resultdata);
+
+return deferred.promise;
+};
+
+processTrainDetailsRecord = function (resultdata) {
 
     var deferred = q.defer();
 
@@ -170,33 +182,43 @@ processTrainDetailsRecordData = function (resultdata) {
         var trainObj = {};
 
         traindata.forEach(function (item) {
-            for (var k = 0; k < item.startDay.length; k++) {
 
-                trainObj.fromStation = item.fromStation;
-                trainObj.toStation = item.toStation;
 
-                
+            //trainObj.fromStation = item.fromStation;
+            //trainObj.toStation = item.toStation;
 
-                Promise.all([findFrom(trainObj.fromStation), findTo(trainObj.toStation)])
-                    .then(function (allData) {
-                        console.log(allData[0][0]);
-                        var fromId = allData[0][0]._id;
-                        var toId = allData[1][0]._id;
+
+
+            Promise.all([findFrom(item.fromStation), findTo(item.toStation), ttType(item.trainType)])
+                .then(function (allData) {
+                    //  console.log(allData[0][0]);
+                    var fromId = allData[0][0]._id;
+                    var toId = allData[1][0]._id;
+                    var ttId = allData[2][0]._id;
+
+                    for (var k = 0; k < item.startDay.length; k++) {
+                        trainObj.runningDay = item.startDay[k];
                         trainObj.trainNo = item.trainNo;
                         trainObj.trainName = item.trainName;
                         trainObj.trainType = item.trainType;
                         trainObj.arrival = item.arrival;
                         trainObj.departure = item.departure;
-                        trainObj.runningDay = item.startDay[k];
-                        // saveTrainToDB("singleSave", trainObj);
                         trainObj.fromStationId = fromId;
                         trainObj.toStationId = toId;
+                        trainObj.trainTypeId = ttId;
+                        trainObj.fromStation = item.fromStation;
+                        trainObj.toStation = item.toStation;
+
                         saveTrainToDB("singleSave", trainObj);
+                    }
+                    // saveTrainToDB("singleSave", trainObj);
 
-                    });
 
 
-            }
+                });
+
+
+
 
 
         });
@@ -209,6 +231,15 @@ processTrainDetailsRecordData = function (resultdata) {
     //return deferred.promise;
 };
 
+
+ttType = function (name) {
+    return new Promise(function (resolve, reject) {
+        tt.find({ 'name': { '$regex': name } }, function (err, res) {
+            return resolve(res);
+        });
+    });
+
+};
 
 findFrom = function (from) {
     return new Promise(function (resolve, reject) {
