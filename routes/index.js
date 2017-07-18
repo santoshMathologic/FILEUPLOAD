@@ -7,7 +7,8 @@ var fs = require('fs');
 
 var upload = require("./upload.js");
 var newupload = require("./newUpload.js");
-
+var station = require("./station.js");
+var traintype = require("./trainType.js");
 
 var uploadDest = Multer({
     dest: './uploads'
@@ -24,6 +25,11 @@ router.get('/api/v1/uploads/getAllUpload',newupload.getUpload);
 router.get('/api/v1/uploads/processTrainDetails',newupload.processTrainDetails);
 
 
+//Station
 
+router.get('/api/v1/station/getStation',station.get);
+
+/// TrainType
+router.get('/api/v1/TrainType/getStation',traintype.get);
 
 module.exports = router;

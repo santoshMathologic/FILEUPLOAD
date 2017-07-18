@@ -9,9 +9,9 @@ var Parse = require('csv-parse');
 var fs = require('fs');
 var json2csv = require('json2csv');
 var uploadModel = require('../models/upload.js');
+var trainModel = require('../models/train.js');
 
-
-
+var traindata = [];
 
 var uploadObj = {
 
@@ -86,13 +86,10 @@ var uploadObj = {
             case "td":
             case "TD":
                 uploadModel.find({ "uploadFileType": ch }, { "data": 1 }, function (err, result) {
-                    processTrainDetailsRecordData(result[0]._doc.data).then(function (result) {
-                        res.json(result);
-                    });
+                    processTrainDetailsRecordData(result[0]._doc.data);
                 });
-
-
                 break;
+
 
             case "tm":
             case "TM":
@@ -111,7 +108,7 @@ var uploadObj = {
 processTrainDetailsRecordData = function (resultdata) {
 
     var deferred = q.defer();
-    var traindata = [];
+
     var trainNo = 0;
     var trainName = "";
     var trainType = "";
@@ -119,13 +116,8 @@ processTrainDetailsRecordData = function (resultdata) {
     var toStation = "";
     var arrival = "";
     var departure = "";
-    var SUN = "";
-    var MON = "";
-    var TUES = "";
-    var WED = "";
-    var THURS = "";
-    var FRI = "";
-    var SATUR = "";
+  
+
 
     if (resultdata !== null || resultdata !== 'undefined') {
         var rExp = new RegExp(/\r\n|\n\r|\n|\r/g); // tabs or carriage return character
@@ -136,40 +128,101 @@ processTrainDetailsRecordData = function (resultdata) {
         for (var i = 1; i < rows.length; i++) {
             var cols = rows[0].split(",");
             var data = rows[i].split(',');
-            trainNo = parseInt(data[0]);
-            trainName = data[1];
-            trainType = data[2];
-            fromStation = data[3];
-            arrival = data[4];
-            toStation = data[5];
-            departure = data[6];
+            if (data != "") {
+                trainNo = parseInt(data[0]);
+                trainName = data[1];
+                trainType = data[2];
+                fromStation = data[3];
+                arrival = data[4];
+                toStation = data[5];
+                departure = data[6];
 
 
-            for (var j = 7; j < 13; j++) {
-                var rdays = data[j].split(",");
-                  if(rdays!==""){
+                var t = {
+                    "trainNo": trainNo,
+                    "trainName": trainName,
+                    "trainType": trainType,
+                    "fromStation": fromStation,
+                    "toStation": toStation,
+                    "arrival": arrival,
+                    "departure": departure,
+                    "startDay": []
+                };
 
-                      console.log(rdays[0]);
-                         
+                for (var j = 0; j < 7; j++) {
+                    var rdays = data[7 + j].split(",");
+                    if (rdays != "") {
+                        t.startDay.push(j);
+                    }
 
-                  }
+                }
+
+                traindata.push(t);
+
+            }
+        }
+
+
+        var trainObj = {};
+
+        traindata.forEach(function (item) {
+            for (var k = 0; k < item.startDay.length; k++) {
+                trainObj.trainNo = item.trainNo;
+                trainObj.trainName = item.trainName;
+                trainObj.trainType = item.trainType;
+                trainObj.fromStation = item.fromStation;
+                trainObj.toStation = item.toStation;
+                trainObj.arrival = item.arrival;
+                trainObj.departure = item.departure;
+                trainObj.runningDay = item.startDay[k];
+                saveTrainToDB("singleSave", trainObj);
             }
 
-            traindata.push({
-                "trainNo": trainNo,
-                "trainName": trainName,
-                "trainType": trainType,
-                "fromStation": fromStation,
-                "toStation": toStation,
-                "arrival": arrival,
-                "departure": departure,
-                "SUNDAY":SUN
-            });
-        }
-        deferred.resolve(traindata);
+
+        });
+
+
+
+        //deferred.resolve(traindata);
 
     }
-    return deferred.promise;
+    //return deferred.promise;
+};
+
+saveTrainToDB = function (ch, trainObj) {
+
+
+    switch (ch) {
+        case "singleSave":
+        case "SINGLESAVE":
+
+            trainModel.create(trainObj, function (err, result) {
+                if (err) return err;
+                else {
+                    //res.json(result);
+                    console.log("Train saved Successfully !!!!!!!!");
+                }
+            });
+            break;
+
+        case "bulkSave":
+        case "BULKSAVE":
+            var deferred = q.defer();
+            trainModel.insertMany(traindata, function (error, result) {
+                if (error) return error;
+                console.log("Train saved Successfully");
+                deferred.resolve(result);
+
+            });
+            break;
+
+
+    }
+
+
+
+
+    //return deferred.promise;
 };
 saveToDB = function (data) {
 
