@@ -11,6 +11,7 @@ var cors = require("cors");
 var app = express();
 
 var routes = require('./routes/index');
+var node_routes = require('./routes/index1');
 var db = require("./database/db");
 
 //app.use(favicon(__dirname + '/public/images/favicon.ico'));
@@ -32,6 +33,7 @@ app.all('/*', function (req, res, next) {
 app.use(cors());
 
 app.use('/', routes);
+//app.use('/node-router', node_routes);
 
 
 
