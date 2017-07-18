@@ -33,6 +33,8 @@ router.get('/api/v1/uploads/processTrainDetails',newupload.processTrainDetails);
 
 router.get('/api/v1/train/getTrains',train.get);
 
+router.get('/api/v1/train/findTrain',train.findByTrainNo);
+
 //Station
 
 router.get('/api/v1/station/getStation',station.get);

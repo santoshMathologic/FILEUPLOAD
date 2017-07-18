@@ -171,20 +171,23 @@ processTrainDetailsRecordData = function (resultdata) {
 
         traindata.forEach(function (item) {
             for (var k = 0; k < item.startDay.length; k++) {
-                trainObj.trainNo = item.trainNo;
-                trainObj.trainName = item.trainName;
-                trainObj.trainType = item.trainType;
+
                 trainObj.fromStation = item.fromStation;
                 trainObj.toStation = item.toStation;
-                trainObj.arrival = item.arrival;
-                trainObj.departure = item.departure;
-                trainObj.runningDay = item.startDay[k];
+
+                
 
                 Promise.all([findFrom(trainObj.fromStation), findTo(trainObj.toStation)])
                     .then(function (allData) {
                         console.log(allData[0][0]);
                         var fromId = allData[0][0]._id;
                         var toId = allData[1][0]._id;
+                        trainObj.trainNo = item.trainNo;
+                        trainObj.trainName = item.trainName;
+                        trainObj.trainType = item.trainType;
+                        trainObj.arrival = item.arrival;
+                        trainObj.departure = item.departure;
+                        trainObj.runningDay = item.startDay[k];
                         // saveTrainToDB("singleSave", trainObj);
                         trainObj.fromStationId = fromId;
                         trainObj.toStationId = toId;
@@ -192,7 +195,7 @@ processTrainDetailsRecordData = function (resultdata) {
 
                     });
 
-                
+
             }
 
 
