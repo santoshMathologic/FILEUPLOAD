@@ -9,6 +9,7 @@ var upload = require("./upload.js");
 var newupload = require("./newUpload.js");
 var station = require("./station.js");
 var traintype = require("./trainType.js");
+var train = require("./train.js");
 
 var uploadDest = Multer({
     dest: './uploads'
@@ -24,6 +25,11 @@ router.post('/api/v1/uploads', uploadDest.single("file"), newupload.parseCSVReco
 router.get('/api/v1/uploads/getAllUpload',newupload.getUpload);
 router.get('/api/v1/uploads/processTrainDetails',newupload.processTrainDetails);
 
+
+
+// routes for train 
+
+router.get('/api/v1/train/getTrains',train.get);
 
 //Station
 
