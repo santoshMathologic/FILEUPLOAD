@@ -21,6 +21,7 @@ var uploadDest = Multer({
 
 router.post('/api/v1/uploads', uploadDest.single("file"), newupload.parseCSVRecords);
 router.get('/api/v1/uploads/getAllUpload',newupload.getUpload);
+router.get('/api/v1/uploads/processTrainDetails',newupload.processTrainDetails);
 
 
 

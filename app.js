@@ -13,7 +13,7 @@ var app = express();
 var routes = require('./routes/index');
 var db = require("./database/db");
 
-app.use(favicon(__dirname + '/public/images/favicon.ico'));
+//app.use(favicon(__dirname + '/public/images/favicon.ico'));
 app.use(logger('dev'));
 app.use(bodyParser.json({ limit: '50mb' }));
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
