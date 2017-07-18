@@ -8,8 +8,12 @@ var Multer = require('multer');
 var Parse = require('csv-parse');
 var fs = require('fs');
 var json2csv = require('json2csv');
+var Promise = require("bluebird");
+var async = require('async');
 var uploadModel = require('../models/upload.js');
 var trainModel = require('../models/train.js');
+var station = require('../models/station.js');
+
 
 var traindata = [];
 
@@ -116,7 +120,7 @@ processTrainDetailsRecordData = function (resultdata) {
     var toStation = "";
     var arrival = "";
     var departure = "";
-  
+
 
 
     if (resultdata !== null || resultdata !== 'undefined') {
@@ -175,7 +179,20 @@ processTrainDetailsRecordData = function (resultdata) {
                 trainObj.arrival = item.arrival;
                 trainObj.departure = item.departure;
                 trainObj.runningDay = item.startDay[k];
-                saveTrainToDB("singleSave", trainObj);
+
+                Promise.all([findFrom(trainObj.fromStation), findTo(trainObj.toStation)])
+                    .then(function (allData) {
+                        console.log(allData[0][0]);
+                        var fromId = allData[0][0]._id;
+                        var toId = allData[1][0]._id;
+                        // saveTrainToDB("singleSave", trainObj);
+                        trainObj.fromStationId = fromId;
+                        trainObj.toStationId = toId;
+                        saveTrainToDB("singleSave", trainObj);
+
+                    });
+
+                
             }
 
 
@@ -188,6 +205,51 @@ processTrainDetailsRecordData = function (resultdata) {
     }
     //return deferred.promise;
 };
+
+
+findFrom = function (from) {
+    return new Promise(function (resolve, reject) {
+        station.find({ 'code': { '$regex': from } }, function (err, res) {
+            return resolve(res);
+        });
+    });
+
+};
+
+findTo = function (to) {
+    return new Promise(function (resolve, reject) {
+        station.find({ 'code': { '$regex': to } }, function (err, res) {
+            return resolve(res);
+        });
+    });
+
+}
+
+/*
+async.parallel({
+
+    findFrom: function (from) {
+
+        station.find({ 'code': { '$regex': from } }, function (err, res) {
+            return resolve(res);
+        });
+    },
+
+    findTo: function (to) {
+
+        station.find({ 'code': { '$regex': to } }, function (err, res) {
+
+        });
+
+    }
+
+}, function (err, results) {
+    // results will have the results of all 3
+    console.log(results.one);
+    console.log(results.two);
+
+});
+*/
 
 saveTrainToDB = function (ch, trainObj) {
 
