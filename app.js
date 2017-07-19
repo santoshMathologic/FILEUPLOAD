@@ -10,7 +10,7 @@ var cors = require("cors");
 
 var expressSession = require("express-session");
 var expressValidator = require("express-validator");
-var connectFlash = require("connect-flash");
+var flash = require('connect-flash');
 var expressHandlebars = require("express-handlebars");
 var passport = require("passport");
 var localStrategy = require("passport-local").Strategy;
@@ -34,9 +34,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-app.use(session({
+app.use(expressSession({
   secret: "secret",
-  saveUninitialize: true,
+  saveUninitialized : true,
   resave: true
 }));
 
@@ -58,11 +58,11 @@ app.use(expressValidator({
 }));
 
 
-app.use(connectFlash());
+app.use(flash());
 app.use(function (req, res, next) {
-  req.local.success_msg = req.connectFlash("success_msg");
-  req.local.error_msg = req.connectFlash("error_msg");
-  req.local.error = req.connectFlash("error");
+  res.locals.success_msg = req.flash("success_msg");
+  res.locals.error_msg = req.flash("error_msg");
+  res.locals.error = req.flash("error");
   next();
 });
 
