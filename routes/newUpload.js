@@ -135,7 +135,7 @@ processTrainStationRecord = function (resultdata) {
         var departure = data[5];
         var distance = data[6];
         trainStation.push(
-             {
+           {
             trainNo: trainNo,
             stop_number: stopNo,
             code: code,
