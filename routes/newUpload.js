@@ -17,6 +17,7 @@ var tt = require('../models/trainType.js');
 
 
 var traindata = [];
+var trainStation = new Array();;
 
 var uploadObj = {
 
@@ -83,7 +84,7 @@ var uploadObj = {
         }
     },
 
-    processTrainDetails: function (req, res) {
+    processing: function (req, res) {
 
         var ch = req.query.type || "";
         switch (ch) {
@@ -113,12 +114,40 @@ var uploadObj = {
 
 };
 
-processTrainStationRecord = function(resultdata){
-var deferred = q.defer();
+processTrainStationRecord = function (resultdata) {
+    var deferred = q.defer();
 
-console.log(resultdata);
+    var rExp = new RegExp(/\r\n|\n\r|\n|\r/g); // tabs or carriage return character
+    
+    var allLines = resultdata.split(rExp);
+    
+    for (var i = 1; i < allLines.length; i++) {
+        
+        // var data = allLines[i].slice(i,i+smallSize).split(",");
+        
+        var data = allLines[i].split(",");
 
-return deferred.promise;
+        var trainNo = data[0];
+        var stopNo = data[1];
+        var code = data[2];
+        var day_of_journry = data[3];
+        var arrival = data[4];
+        var departure = data[5];
+        var distance = data[6];
+        trainStation.push(
+             {
+            trainNo: trainNo,
+            stop_number: stopNo,
+            code: code,
+            day_of_journry: day_of_journry,
+            arrival: arrival,
+            departure: departure,
+            distance: distance
+        });
+    }
+
+    console.log(trainStation);
+    return deferred.promise;
 };
 
 processTrainDetailsRecord = function (resultdata) {
