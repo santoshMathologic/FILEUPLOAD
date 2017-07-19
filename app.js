@@ -8,6 +8,14 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cors = require("cors");
 
+var expressSession = require("express-session");
+var expressValidator = require("express-validator");
+var connectFlash = require("connect-flash");
+var expressHandlebars = require("express-handlebars");
+var passport = require("passport");
+var localStrategy = require("passport-local").Strategy;
+
+
 var app = express();
 
 var routes = require('./routes/index');
@@ -22,6 +30,44 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+app.use(passport.initialize());
+app.use(passport.session());
+
+
+app.use(session({
+  secret: "secret",
+  saveUninitialize: true,
+  resave: true
+}));
+
+app.use(expressValidator({
+  errorFormatter: function (param, msg, value) {
+    var namespace = param.split('.');
+    var root = namespace.shift();
+    var formParam = root;
+
+    while (namespace.length) {
+      formParam += '[' + namespace.shift() + ']';
+    }
+    return {
+      param: formParam,
+      msg: msg,
+      value: value
+    };
+  }
+}));
+
+
+app.use(connectFlash());
+app.use(function (req, res, next) {
+  req.local.success_msg = req.connectFlash("success_msg");
+  req.local.error_msg = req.connectFlash("error_msg");
+  req.local.error = req.connectFlash("error");
+  next();
+});
+
+
+
 app.all('/*', function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
@@ -34,7 +80,6 @@ app.use(cors());
 
 app.use('/', routes);
 //app.use('/node-router', node_routes);
-
 
 
 

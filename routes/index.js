@@ -17,6 +17,19 @@ var uploadDest = Multer({
 
 
 
+router.get('/api/v1/passport/login',function(req,res){
+
+     res.send("DSADSADASD");
+});
+
+router.get('/api/v1/passport/register',function(req,res){
+        res.send("DSADSADASD DASDSA");
+});
+
+///  Login With Passport JS 
+
+
+
 
 // routes for Upload 
 
